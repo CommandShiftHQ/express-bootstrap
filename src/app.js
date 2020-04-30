@@ -1,6 +1,5 @@
 const express = require('express');
-const mainController = require('./controllers.js');
-const jokesController = require('./controllers.js');
+const {mainController, jokesController} = require('./controllers.js');
 
 const app = express();
 

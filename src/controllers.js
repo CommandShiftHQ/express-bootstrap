@@ -9,4 +9,4 @@ const jokesController = (req, res) => {
   });
 };
 
-module.exports = mainController, jokesController;
+module.exports = {mainController, jokesController};
