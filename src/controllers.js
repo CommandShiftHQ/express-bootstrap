@@ -8,15 +8,5 @@ const jokesController = (req, res) => {
     message: 'This is the all jokes endpoint!',
   });
 };
-const randomController = (req, res) => {
-  res.send({
-    message: 'This is the all jokes endpoint!',
-  });
-};
-const random2Controller = (req, res) => {
-  res.send({
-    message: 'This is the all jokes endpoint!',
-  });
-};
 
-module.exports = mainController, jokesController, randomController,random2Controller;
+module.exports = mainController, jokesController;
