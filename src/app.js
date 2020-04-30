@@ -4,7 +4,7 @@ const app = express();
 
 app.get('/', (req, res) => {
   res.send({
-    message: 'Hello world!',
+    message: 'Welcome to my Jokes API!',
   });
 });
 
