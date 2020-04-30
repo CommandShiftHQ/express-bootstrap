@@ -1,12 +1,8 @@
 const express = require('express');
+const mainController = require('./controllers.js')
 
 const app = express();
 
-const mainController = (req, res) => {
-  res.send({
-    message: 'Welcome to my Jokes API!',
-  });
-};
 app.get('/', mainController);
 
 module.exports = app;
