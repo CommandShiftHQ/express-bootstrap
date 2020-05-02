@@ -11,7 +11,7 @@ it('GET / should respond with welcome message', done => {
       done();
     });
 });
-it('GET / should respond with all jokes', done => {
+it('GET /jokes should respond with all jokes', done => {
   const mockResponse = {
     type: 'success',
     value: [
@@ -54,7 +54,7 @@ it('GET / should respond with all jokes', done => {
     });
 });
 
-it('GET / should respond with a random joke', done => {
+it('GET /jokes/random should respond with a random joke', done => {
   const mockResponse = {
     type: 'success',
     value: {
@@ -64,28 +64,23 @@ it('GET / should respond with a random joke', done => {
     },
   };
   nock('https://api.icndb.com')
-  .get('/random')
-  .query({ exclude: '[explicit]' })
-  .reply(200, mockResponse);
+    .get('/jokes/random')
+    .reply(200, mockResponse);
+
   request(app)
-    .get('/jokes/*')
+    .get('/jokes/random')
     .then(res => {
       nock('https://api.icndb.com')
-        .get('/jokes')
+        .get('/jokes/random')
         .reply(200, mockResponse);
+
       expect(res.statusCode).toEqual(200);
-      expect(res.body.randomJoke).toEqual([
-        {
-          categories: [],
-          id: 1,
-          joke: 'i am a random joke',
-        },
-        {
-          categories: [],
-          id: 2,
-          joke: 'i am another random joke',
-        },
-      ]);
+      expect(res.body.randomJoke).toEqual({
+        categories: [],
+        id: 115,
+        joke: 'i am a random joke',
+      });
+
       done();
     });
-})
+});

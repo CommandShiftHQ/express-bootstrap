@@ -1,4 +1,6 @@
+
 const request = require('request');
+const axios = require('axios');
 
 const mainController = (req, res) => {
   res.send({
@@ -19,8 +21,17 @@ const jokesController = (req, res) => {
     }
     const parsedResponse = JSON.parse(jokesApiResponse.body);
     res.send({ jokes: parsedResponse.value });
-    //console.log(parsedResponse);
+    // console.log(parsedResponse);
   });
-  //
 };
-module.exports = { mainController, jokesController };
+
+const randomJokeController = (req, res) => {
+  axios
+    .get('https://api.icndb.com/jokes/random?exclude=[explicit]')
+    .then(response => res.send({ randomJoke: response.data.value }))
+
+    .catch(error => {
+      console.log(error);
+    });
+};
+module.exports = { mainController, jokesController, randomJokeController };
