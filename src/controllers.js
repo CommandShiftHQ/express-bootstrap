@@ -8,12 +8,6 @@ const mainController = (req, res) => {
   });
 };
 
-/* const jokesController = (req, res) => {
-  res.send({
-    message: 'This is the all jokes endpoint!',
-  });
-}; */
-
 const jokesController = (req, res) => {
   request('https://api.icndb.com/jokes', (error, jokesApiResponse) => {
     if (error) {
@@ -21,7 +15,7 @@ const jokesController = (req, res) => {
     }
     const parsedResponse = JSON.parse(jokesApiResponse.body);
     res.send({ jokes: parsedResponse.value });
-    // console.log(parsedResponse);
+     //console.log(jokesApiResponse.body);
   });
 };
 
