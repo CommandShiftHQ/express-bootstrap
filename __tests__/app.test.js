@@ -69,6 +69,7 @@ it('GET /jokes/random should respond with a random joke', done => {
   };
   nock('https://api.icndb.com')
     .get('/jokes/random')
+    .query({ exclude: '[explicit]' })
     .reply(200, mockResponse);
 
   request(app)
