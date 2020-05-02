@@ -19,7 +19,7 @@ const jokesController = (req, res) => {
     }
     const parsedResponse = JSON.parse(jokesApiResponse.body);
     res.send({ jokes: parsedResponse.value });
-    console.log(parsedResponse);
+    //console.log(parsedResponse);
   });
   //
 };
