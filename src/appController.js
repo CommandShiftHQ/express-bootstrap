@@ -22,18 +22,17 @@ const randomJokeController = (req, res) => {
     });
 };
 
-const personalJokeController = async (req, res) => {
+const personalJokeController = (req, res) => {
   const { first, last } = req.params;
 
-  try {
-    const response = await axios.get(
+  axios
+    .get(
       `https://api.icndb.com/jokes/random?firstName=${first}&lastName=${last}&exclude=[explicit]`,
-    );
-
-    return res.send({ personalJoke: response.data.value });
-  } catch (error) {
-    return res.status(error.statusCode).send({ error: error.message });
-  }
+    )
+    .then(response => res.send({ personalJoke: response.data.value }))
+    .catch(error => {
+      return res.status(error.statusCode).send({ error: error.message });
+    });
 };
 
 module.exports = {
