@@ -80,21 +80,25 @@ it('GET / should serve a random joke!', done => {
       done();
     });
 });
-it('GET / should serve a personalised joke for {first} {last}!', done => {
+it('GET / should serve a personalised joke for {first} {last}!', async () => {
+  const mockResponse = {
+    type: 'success',
+    value: {
+      id: 115,
+      joke: 'random joke about manchester codes',
+      categories: [],
+    },
+  };
+
+  nock('https://api.icndb.com')
+    .get('/jokes/random')
+    .query({ exclude: '[explicit]', firstName: 'first', lastName: 'last' })
+    .reply(200, mockResponse);
+
   request(app)
     .get('/jokes/random/personal/first/last')
     .then(res => {
       expect(res.statusCode).toEqual(200);
-      expect(res.body.message).toEqual(`This is a jokes endpoint for first last`);
-      done();
-    });
-});
-it('GET / should serve a personalised joke for {first} {last}!', done => {
-  request(app)
-    .get('/jokes/random/personal/Aniko/Veiszhab')
-    .then(res => {
-      expect(res.statusCode).toEqual(200);
-      expect(res.body.message).toEqual(`This is a jokes endpoint for Aniko Veiszhab`);
-      done();
+      expect(res.body.personalJoke).toEqual(mockResponse.value);
     });
 });
