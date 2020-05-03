@@ -2,21 +2,14 @@
 const request = require('request');
 const axios = require('axios');
 
-const mainController = (req, res) => {
-  res.send({
-    message: 'Welcome to my jokes API!',
-  });
-};
-
 const jokesController = (req, res) => {
-  // eslint-disable-next-line consistent-return
   request('https://api.icndb.com/jokes', (error, jokesApiResponse) => {
     if (error) {
       return res.status(error.statusCode).send({ error: error.message });
     }
 
     const parsedResponse = JSON.parse(jokesApiResponse.body);
-    res.send({ jokes: parsedResponse.value });
+    return res.send({ jokes: parsedResponse.value });
   });
 };
 
@@ -29,7 +22,6 @@ const randomJokeController = (req, res) => {
     });
 };
 
-// eslint-disable-next-line consistent-return
 const personalJokeController = async (req, res) => {
   const { first, last } = req.params;
 
@@ -45,7 +37,6 @@ const personalJokeController = async (req, res) => {
 };
 
 module.exports = {
-  mainController,
   jokesController,
   randomJokeController,
   personalJokeController,
