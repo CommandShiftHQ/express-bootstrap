@@ -9,10 +9,10 @@ const mainController = (req, res) => {
 };
 
 const jokesController = (req, res) => {
+  // eslint-disable-next-line consistent-return
   request('https://api.icndb.com/jokes', (error, jokesApiResponse) => {
     if (error) {
-      // eslint-disable-next-line no-console
-      console.log(error);
+      return res.status(error.statusCode).send({ error: error.message });
     }
 
     const parsedResponse = JSON.parse(jokesApiResponse.body);
@@ -20,16 +20,17 @@ const jokesController = (req, res) => {
   });
 };
 
-const randomController = (req, res) =>
+const randomJokeController = (req, res) => {
   axios
     .get('https://api.icndb.com/jokes/random?exclude=[explicit]')
     .then(response => res.send({ randomJoke: response.data.value }))
     .catch(error => {
-      // eslint-disable-next-line
-      console.log(error);
+      return res.status(error.statusCode).send({ error: error.message });
     });
+};
 
-const personalController = async (req, res) => {
+// eslint-disable-next-line consistent-return
+const personalJokeController = async (req, res) => {
   const { first, last } = req.params;
 
   try {
@@ -39,14 +40,13 @@ const personalController = async (req, res) => {
 
     return res.send({ personalJoke: response.data.value });
   } catch (error) {
-    // eslint-disable-next-line
-        console.log(error);
+    return res.status(error.statusCode).send({ error: error.message });
   }
 };
 
 module.exports = {
   mainController,
   jokesController,
-  randomController,
-  personalController,
+  randomJokeController,
+  personalJokeController,
 };
