@@ -1,5 +1,10 @@
 const express = require('express');
-const {mainController, jokesController, randomJokeController, personalJokeController} = require('./controllers.js');
+const {
+  mainController,
+  jokesController,
+  randomJokeController,
+  personalJokeController,
+} = require('./controllers.js');
 
 const app = express();
 

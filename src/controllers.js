@@ -12,9 +12,10 @@ const jokesController = async (req, res) => {
     const response = await axios.get('https://api.icndb.com/jokes');
     res.send({ jokes: response.data.value });
   } catch (error) {
-    console.log(error);
+    res.status(error.statusCode).send({ error: error.message });
   }
- 
+};
+
 const randomJokeController = async (req, res) => {
   try {
     const response = await axios.get(`https://api.icndb.com/jokes/random?exclude=[explicit]`);
