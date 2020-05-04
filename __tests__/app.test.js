@@ -6,7 +6,10 @@ const request = require('supertest');
 const nock = require('nock');
 const app = require('../src/app');
 
+const mockResponse = require('../src/mockResponse.js');
+
 const mockError = { statusCode: 500, message: 'Error responding' };
+
 describe('GET / Homepage', () => {
   it('should respond with some homepage markup', done => {
     request(app)
@@ -20,24 +23,9 @@ describe('GET / Homepage', () => {
 });
 describe('GET /jokes', () => {
   it('GET /jokes should respond with all jokes', async () => {
-    const mockResponse = {
-      type: 'success',
-      value: [
-        {
-          id: 1,
-          joke: 'i am a joke',
-          categories: [],
-        },
-        {
-          id: 2,
-          joke: 'i am another joke',
-          categories: [],
-        },
-      ],
-    };
     nock('https://api.icndb.com')
       .get('/jokes')
-      .reply(200, mockResponse);
+      .reply(200, mockResponse.mockResponseJokes);
 
     request(app)
       .get('/jokes')
@@ -46,7 +34,7 @@ describe('GET /jokes', () => {
           .get('/jokes')
           .reply(200, mockResponse);
         expect(res.statusCode).toEqual(200);
-        expect(res.body.jokes).toEqual(mockResponse.value);
+        expect(res.body.jokes).toEqual(mockResponse.mockResponseJokes.value);
       });
   });
   it('should respond with an error message if something goes wrong', async () => {
@@ -65,18 +53,10 @@ describe('GET /jokes', () => {
 
 describe('GET /jokes/random', () => {
   it('GET /jokes/random should respond with a random joke', async () => {
-    const mockResponse = {
-      type: 'success',
-      value: {
-        id: 115,
-        joke: 'i am a random joke',
-        categories: [],
-      },
-    };
     nock('https://api.icndb.com')
       .get('/jokes/random')
       .query({ exclude: '[explicit]' })
-      .reply(200, mockResponse);
+      .reply(200, mockResponse.mockResponseRandom);
 
     request(app)
       .get('/jokes/random')
@@ -86,7 +66,7 @@ describe('GET /jokes/random', () => {
           .reply(200, mockResponse);
 
         expect(res.statusCode).toEqual(200);
-        expect(res.body.randomJoke).toEqual(mockResponse.value);
+        expect(res.body.randomJoke).toEqual(mockResponse.mockResponseRandom.value);
       });
   });
   it('should respond with an error message if something goes wrong', async () => {
@@ -107,29 +87,20 @@ describe('GET /jokes/random', () => {
 
 describe('GET /jokes/random/personal', () => {
   it('GET /jokes/random/personal should respond with a personal joke', async () => {
-    const mockResponse = {
-      type: 'success',
-      value: {
-        id: 115,
-        joke: 'random joke about manchester codes',
-        categories: [],
-      },
-    };
     nock('https://api.icndb.com')
       .get('/jokes/random') // personal
       .query({ exclude: '[explicit]', firstName: 'first', lastName: 'last' })
-      .reply(200, mockResponse);
+      .reply(200, mockResponse.mockResponsePersonal);
 
     request(app)
       .get('/jokes/random/personal/first/last')
       .then(res => {
         expect(res.statusCode).toEqual(200);
-        expect(res.body.personalJoke).toEqual(mockResponse.value);
+        expect(res.body.personalJoke).toEqual(mockResponse.mockResponsePersonal.value);
       });
   });
 
   it('should respond with an error message if something goes wrong', async () => {
-    // const mockError = { statusCode: 500, message: 'Error responding' };
     nock('https://api.icndb.com')
       .get('/jokes/random')
       .query({ exclude: '[explicit]', firstName: 'first', lastName: 'last' })
