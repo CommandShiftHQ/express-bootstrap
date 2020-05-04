@@ -3,8 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/runtime": "^7.9.6",
     "axios": "^0.19.2",
-    "express": "^4.17.1"
+    "babel-upgrade": "^1.0.1",
+    "express": "^4.17.1",
+    "regenerator-runtime": "^0.13.5"
   },
   "scripts": {
     "start": "nodemon index.js",
@@ -17,6 +20,8 @@
     "@babel/plugin-proposal-export-namespace-from": "^7.2.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
     "@babel/plugin-proposal-optional-chaining": "^7.2.0",
+    "@babel/plugin-transform-regenerator": "^7.8.7",
+    "@babel/plugin-transform-runtime": "^7.9.6",
     "@babel/preset-env": "^7.6.0",
     "babel-eslint": "^10.0.3",
     "eslint": "^6.8.0",
