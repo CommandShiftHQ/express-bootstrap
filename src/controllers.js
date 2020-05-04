@@ -7,27 +7,14 @@ const mainController = (req, res) => {
   });
 };
 
-const jokesController = (req, res) => {
-  request('https://api.icndb.com/jokes', (error, jokesApiResponse) => {
-    if (error) {
-      console.log(error);
-    }
-    const parsedResponse = JSON.parse(jokesApiResponse.body);
-    res.send({ jokes: parsedResponse.value });
-    // console.log(jokesApiResponse.body);
-  });
-};
-/*
-const randomJokeController = (req, res) => {
-  axios
-    .get('https://api.icndb.com/jokes/random?exclude=[explicit]')
-    .then(response => res.send({ randomJoke: response.data.value }))
-
-    .catch(error => {
-      console.log(error);
-    });
-}; */
-
+const jokesController = async (req, res) => {
+  try {
+    const response = await axios.get('https://api.icndb.com/jokes');
+    res.send({ jokes: response.data.value });
+  } catch (error) {
+    console.log(error);
+  }
+ 
 const randomJokeController = async (req, res) => {
   try {
     const response = await axios.get(`https://api.icndb.com/jokes/random?exclude=[explicit]`);
