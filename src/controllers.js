@@ -1,4 +1,3 @@
-
 const request = require('request');
 const axios = require('axios');
 
@@ -15,7 +14,7 @@ const jokesController = (req, res) => {
     }
     const parsedResponse = JSON.parse(jokesApiResponse.body);
     res.send({ jokes: parsedResponse.value });
-     //console.log(jokesApiResponse.body);
+    // console.log(jokesApiResponse.body);
   });
 };
 
@@ -28,4 +27,11 @@ const randomJokeController = (req, res) => {
       console.log(error);
     });
 };
-module.exports = { mainController, jokesController, randomJokeController };
+
+const personalJokeController = (req, res) => {
+  const { first } = req.params;
+  const { last } = req.params;
+  return res.status(200).json({ message: `This is a jokes endpoint for ${first} ${last}` });
+};
+
+module.exports = { mainController, jokesController, randomJokeController, personalJokeController };

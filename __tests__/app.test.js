@@ -89,13 +89,13 @@ it('GET /jokes/random should respond with a random joke', done => {
       done();
     });
 });
-/*
-it('GET /jokes/random should respond with a jokes message', done => {
+
+it('GET /jokes/personal should respond with a personal joke',done => {
   request(app)
-    .get('/jokes/random')
+    .get('/jokes/personal/manchester/codes')
     .then(res => {
       expect(res.statusCode).toEqual(200);
-      expect(res.body.message).toEqual('Reached the random joke endpoint');
+      expect(res.body).toEqual({ message: `This is a jokes endpoint for manchester codes` });
       done();
     });
-});*/
+});
