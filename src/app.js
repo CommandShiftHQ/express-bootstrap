@@ -9,6 +9,6 @@ app.get('/jokes', jokesController);
 
 app.get('/jokes/random', randomJokeController);
 
-app.get('/jokes/personal/:first/:last', personalJokeController);
+app.get('/jokes/random/personal/:first/:last', personalJokeController);
 
 module.exports = app;

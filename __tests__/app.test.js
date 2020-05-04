@@ -100,7 +100,7 @@ it('GET /jokes/personal should respond with a personal joke',done => {
     });
 }); */
 
-it('GET /jokes/personal should respond with a personal joke', async() => {
+it('GET /jokes/personal should respond with a personal joke', async () => {
   const mockResponse = {
     type: 'success',
     value: {
@@ -115,7 +115,7 @@ it('GET /jokes/personal should respond with a personal joke', async() => {
     .reply(200, mockResponse);
 
   request(app)
-    .get('/jokes/personal/first/last')
+    .get('/jokes/random/personal/first/last')
     .then(res => {
       expect(res.statusCode).toEqual(200);
       expect(res.body.personalJoke).toEqual(mockResponse.value);
