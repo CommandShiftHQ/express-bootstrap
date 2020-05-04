@@ -57,7 +57,7 @@ it('GET /jokes should respond with all jokes', done => {
       done();
     });
 });
-
+/*
 it('GET /jokes/random should respond with a random joke', done => {
   const mockResponse = {
     type: 'success',
@@ -88,19 +88,34 @@ it('GET /jokes/random should respond with a random joke', done => {
 
       done();
     });
-});
-/*
-it('GET /jokes/personal should respond with a personal joke',done => {
-  request(app)
-    .get('/jokes/personal/manchester/codes')
-    .then(res => {
-      expect(res.statusCode).toEqual(200);
-      expect(res.body).toEqual({ message: `This is a jokes endpoint for manchester codes` });
-      done();
-    });
 }); */
+it('GET /jokes/random should respond with a random joke', async () => {
+  const mockResponse = {
+    type: 'success',
+    value: {
+      id: 115,
+      joke: 'i am a random joke',
+      categories: [],
+    },
+  };
+  nock('https://api.icndb.com')
+    .get('/jokes/random')
+    .query({ exclude: '[explicit]' })
+    .reply(200, mockResponse);
 
-it('GET /jokes/personal should respond with a personal joke', async () => {
+  request(app)
+    .get('/jokes/random')
+    .then(res => {
+      nock('https://api.icndb.com')
+        .get('/jokes/random')
+        .reply(200, mockResponse);
+
+      expect(res.statusCode).toEqual(200);
+      expect(res.body.randomJoke).toEqual(mockResponse.value);
+    });
+});
+
+it('GET /jokes/random/personal should respond with a personal joke', async () => {
   const mockResponse = {
     type: 'success',
     value: {
@@ -121,3 +136,13 @@ it('GET /jokes/personal should respond with a personal joke', async () => {
       expect(res.body.personalJoke).toEqual(mockResponse.value);
     });
 });
+/*
+it('GET /jokes/personal should respond with a personal joke',done => {
+  request(app)
+    .get('/jokes/personal/manchester/codes')
+    .then(res => {
+      expect(res.statusCode).toEqual(200);
+      expect(res.body).toEqual({ message: `This is a jokes endpoint for manchester codes` });
+      done();
+    });
+}); */
