@@ -1,16 +1,17 @@
 const request = require('request');
 const axios = require('axios');
 
+/*
 const mainController = (req, res) => {
   res.send({
     message: 'Welcome to my Jokes API!',
   });
-};
+};*/
 
 const jokesController = async (req, res) => {
   try {
     const response = await axios.get('https://api.icndb.com/jokes');
-    res.send({ jokes: response.data.value });
+    return res.send({ jokes: response.data.value });
   } catch (error) {
     res.status(error.statusCode).send({ error: error.message });
   }
@@ -39,4 +40,4 @@ const personalJokeController = async (req, res) => {
   }
 };
 
-module.exports = { mainController, jokesController, randomJokeController, personalJokeController };
+module.exports = {  jokesController, randomJokeController, personalJokeController };

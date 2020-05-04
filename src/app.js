@@ -1,14 +1,14 @@
 const express = require('express');
 const {
-  mainController,
   jokesController,
   randomJokeController,
   personalJokeController,
 } = require('./controllers.js');
 
 const app = express();
+app.use(express.static('./public'));
 
-app.get('/', mainController);
+//app.get('/', mainController);
 
 app.get('/jokes', jokesController);
 

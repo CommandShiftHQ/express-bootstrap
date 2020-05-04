@@ -6,16 +6,18 @@ const request = require('supertest');
 const nock = require('nock');
 const app = require('../src/app');
 
-it('GET / should respond with welcome message', done => {
-  request(app)
-    .get('/')
-    .then(res => {
-      expect(res.statusCode).toEqual(200);
-      expect(res.body.message).toEqual('Welcome to my Jokes API!');
-      done();
-    });
+const mockError = { statusCode: 500, message: 'Error responding' };
+describe('GET / Homepage', () => {
+  it('should respond with some homepage markup', done => {
+    request(app)
+      .get('/')
+      .then(res => {
+        expect(res.statusCode).toEqual(200);
+        expect(res.text).toContain('Welcome to my Jokes API Page!');
+        done();
+      });
+  });
 });
-
 describe('GET /jokes', () => {
   it('GET /jokes should respond with all jokes', async () => {
     const mockResponse = {
@@ -48,7 +50,6 @@ describe('GET /jokes', () => {
       });
   });
   it('should respond with an error message if something goes wrong', async () => {
-    const mockError = { statusCode: 500, message: 'Error responding' };
     nock('https://api.icndb.com')
       .get('/jokes')
       .replyWithError(mockError);
@@ -89,7 +90,7 @@ describe('GET /jokes/random', () => {
       });
   });
   it('should respond with an error message if something goes wrong', async () => {
-    const mockError = { statusCode: 500, message: 'Error responding' };
+    // const mockError = { statusCode: 500, message: 'Error responding' };
     nock('https://api.icndb.com')
       .get('/jokes/random')
       .query({ exclude: '[explicit]' })
@@ -115,7 +116,7 @@ describe('GET /jokes/random/personal', () => {
       },
     };
     nock('https://api.icndb.com')
-      .get('/jokes/random') //personal
+      .get('/jokes/random') // personal
       .query({ exclude: '[explicit]', firstName: 'first', lastName: 'last' })
       .reply(200, mockResponse);
 
@@ -128,7 +129,7 @@ describe('GET /jokes/random/personal', () => {
   });
 
   it('should respond with an error message if something goes wrong', async () => {
-    const mockError = { statusCode: 500, message: 'Error responding' };
+    // const mockError = { statusCode: 500, message: 'Error responding' };
     nock('https://api.icndb.com')
       .get('/jokes/random')
       .query({ exclude: '[explicit]', firstName: 'first', lastName: 'last' })
