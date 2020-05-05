@@ -16,9 +16,13 @@ npm start
 ```
 
 Visit [http://localhost:3000/] in your browser and you should see the webpage welcoming you. 
+
 ## Commands to use:
+
 `http://localhost:3000/jokes` to display all jokes.
+
 `http://localhost:3000/jokes/random` to see a random Chuck Norris joke.
+
 `http://localhost:3000/jokes/random/personal/first/last` where `first` and `last` can be replaced with your choice of words to display a personalized random joke.
 
 
