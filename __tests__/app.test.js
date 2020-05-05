@@ -48,9 +48,7 @@ describe('GET /jokes', () => {
 
     request(app)
       .get('/jokes')
-      .then(res => {
-        return errFunc(res);
-      });
+      .then(res => errFunc(res));
   });
 });
 
@@ -80,9 +78,7 @@ describe('GET /jokes/random', () => {
 
     request(app)
       .get('/jokes/random')
-      .then(res => {
-        return errFunc(res);
-      });
+      .then(res => errFunc(res));
   });
 });
 
@@ -105,13 +101,10 @@ describe('GET /jokes/random/personal', () => {
     nock(api)
       .get('/jokes/random')
       .query({ exclude: '[explicit]', firstName: 'first', lastName: 'last' })
-
       .replyWithError(mockError);
 
     request(app)
       .get('/jokes/random/personal/first/last')
-      .then(res => {
-        return errFunc(res);
-      });
+      .then(res => errFunc(res));
   });
 });
