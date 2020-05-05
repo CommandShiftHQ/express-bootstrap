@@ -1,4 +1,4 @@
-# Express Bootstrap
+# Using API 
 
 This project is a boilerplate for Node.js/Express applications. It also comes included with Jest, and Supertest for end-to-end testing.
 
@@ -6,21 +6,23 @@ This project is a boilerplate for Node.js/Express applications. It also comes in
 
 Ensure your Visual Studio Code application is up to date, and that you have the [ESLint extension](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) installed and enabled.
 
-Replace `your-project-folder-name` with the folder name you wish to create for your project and run the below inside your `Projects` folder.
+Replace `your-folder-name` with the folder name you wish to create and run the below inside your root folder.
 
 ```bash
-git clone git@github.com:MCRcodes/express-bootstrap.git your-project-folder-name
-cd your-project-folder-name
+git clone git@github.com:SanMasood/express-bootstrap.git your-folder-name
+cd your-folder-name
 npm install
 npm start
 ```
 
-Visit [http://localhost:3000/] in your browser and you should see `Hello world!`. You can dive in and start coding your own routes in `src/app.js`.
+Visit [http://localhost:3000/] in your browser and you should see the webpage welcoming you. 
+## Commands to use:
+`http://localhost:3000/jokes` to display all jokes.
+`http://localhost:3000/jokes/random` to see a random Chuck Norris joke.
+`http://localhost:3000/jokes/random/personal/first/last` where `first` and `last` can be replaced with your choice of words to display a personalized random joke.
 
-## Running tests
 
-You can run tests with the `npm test` command.
+## Credits
 
-## Remember: READMEs are important!
-
-When you're finished, be sure to rewrite this one so it's more specific to your project.
+[Manchester Codes](https://github.com/MCRcodes), [The Internet Chuck Norris Database](http://www.icndb.com/api/).
+Thank you #feb20 on Slack & [Justin](https://github.com/jdsandahl) for helping me squash bugs.
