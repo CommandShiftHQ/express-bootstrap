@@ -32,5 +32,4 @@ const mockResponsePersonal = {
   },
 };
 
-
-module.exports = { mockResponseJokes, mockResponseRandom, mockResponsePersonal}
+module.exports = { mockResponseJokes, mockResponseRandom, mockResponsePersonal };
