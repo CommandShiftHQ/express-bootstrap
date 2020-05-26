@@ -9,7 +9,7 @@ const mockResponse = require('../src/mockResponse.js');
 
 const api = 'https://api.icndb.com';
 const mockError = { statusCode: 500, message: 'Error responding' };
-const errFunc = res => {
+const assertError = res => {
   expect(res.statusCode).toEqual(500);
   expect(res.body.error).toEqual(mockError.message);
 };
@@ -48,7 +48,7 @@ describe('GET /jokes', () => {
 
     request(app)
       .get('/jokes')
-      .then(res => errFunc(res));
+      .then(res => assertError(res));
   });
 });
 
@@ -78,7 +78,7 @@ describe('GET /jokes/random', () => {
 
     request(app)
       .get('/jokes/random')
-      .then(res => errFunc(res));
+      .then(res => assertError(res));
   });
 });
 
@@ -105,6 +105,6 @@ describe('GET /jokes/random/personal', () => {
 
     request(app)
       .get('/jokes/random/personal/first/last')
-      .then(res => errFunc(res));
+      .then(res => assertError(res));
   });
 });
