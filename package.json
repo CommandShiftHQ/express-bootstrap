@@ -3,7 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "express": "^4.17.1"
+    "@babel/runtime": "^7.9.6",
+    "axios": "^0.19.2",
+    "babel-upgrade": "^1.0.1",
+    "express": "^4.17.1",
+    "regenerator-runtime": "^0.13.5"
   },
   "scripts": {
     "start": "nodemon index.js",
@@ -16,6 +20,7 @@
     "eslint-plugin-import": "^2.20.0",
     "eslint-plugin-prettier": "^3.1.1",
     "jest": "^24.9.0",
+    "nock": "^12.0.3",
     "nodemon": "^1.18.7",
     "prettier": "^1.19.1",
     "supertest": "^4.0.2"
